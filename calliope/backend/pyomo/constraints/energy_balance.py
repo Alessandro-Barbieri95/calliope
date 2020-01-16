@@ -97,6 +97,12 @@ def load_constraints(backend_model):
             rule=storage_initial_rule
         )
 
+    if 'loc_techs_storage_final' in sets:
+        backend_model.storage_final_constraint = po.Constraint(
+            backend_model.loc_tech_storage_final,
+            rule=storage_final_rule
+        )    
+
 
 def system_balance_constraint_rule(backend_model, loc_carrier, timestep):
     """
@@ -585,7 +591,7 @@ def storage_initial_rule(backend_model, loc_tech):
     Where :math:`timestep_{final}` is the last timestep of the timeseries
     """
 
-    storage_initial = get_param(backend_model, 'storage_initial', loc_tech)
+    storage_initial = get_param(backend_model, 'storage_initial', loc_tech)   
 
     storage_loss = get_param(backend_model, 'storage_loss', loc_tech)
     if hasattr(backend_model, 'storage_inter_cluster'):
@@ -599,5 +605,20 @@ def storage_initial_rule(backend_model, loc_tech):
 
     return (
         storage[loc_tech, final_step] * ((1 - storage_loss) ** time_resolution)
-        == storage_initial * backend_model.storage_cap[loc_tech]
+        == storage_initial * backend_model.storage_cap[loc_tech]        
+    )
+
+def storage_final_rule(backend_model, loc_tech):
+
+    """
+    set the final storage equal to the one provided by the user
+    """
+
+    storage_final = get_param(backend_model,'storage_final',loc_tech)
+    
+    storage = backend_model.storage
+    final_step = backend_model.timesteps[-1]
+
+    return (
+         storage[loc_tech,final_step] == storage_final * backend_model.storage_cap[loc_tech]
     )
