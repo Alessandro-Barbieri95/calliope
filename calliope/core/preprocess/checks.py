@@ -810,7 +810,7 @@ def check_model_data(model_data):
         )
 
     # Check if cyclic storage is active when storage_final is defined
-    if hasattr(model_data, 'storage_final') and config_model.get_key('run.cyclic_storage', True)
+    if hasattr(model_data, 'storage_final') and config_model.get_key('run.cyclic_storage', True):
         errors.append(
             'it is not possible to define a final storage value if cyclic storage is active'
         )    
