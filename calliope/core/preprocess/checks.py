@@ -809,4 +809,8 @@ def check_model_data(model_data):
             'storage_discharge_depth is currently not allowed when time clustering is active.'
         )
 
+    # Check if cyclic storage is active when storage_final is defined
+    if hasattr(model_data, 'storage_final') and config_model.get_key('run.cyclic_storage', True)
+        errors.append('it is not possible to define a final storage value if cyclic storage is active')    
+
     return model_data, comments, model_warnings, errors
