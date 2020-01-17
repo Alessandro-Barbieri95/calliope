@@ -669,7 +669,7 @@ def check_final(model_run):
     return comments, model_warnings, errors
 
 
-def check_model_data(model_data):
+def check_model_data(model_data, config_model):
     """
     Perform final checks of the completely built xarray Dataset `model_data`.
 
