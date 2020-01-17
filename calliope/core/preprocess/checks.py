@@ -669,7 +669,7 @@ def check_final(model_run):
     return comments, model_warnings, errors
 
 
-def check_model_data(model_data, config_model):
+def check_model_data(model_data):
     """
     Perform final checks of the completely built xarray Dataset `model_data`.
 
@@ -810,9 +810,9 @@ def check_model_data(model_data, config_model):
         )
 
     # Check if cyclic storage is active when storage_final is defined
-    if hasattr(model_data, 'storage_final') and config_model.get_key('run.cyclic_storage', True):
-        errors.append(
-            'it is not possible to define a final storage value if cyclic storage is active'
-        )    
+    #if hasattr(model_data, 'storage_final') and config_model.get_key('run.cyclic_storage', True):
+    #    errors.append(
+    #       'it is not possible to define a final storage value if cyclic storage is active'
+    #    )    
 
     return model_data, comments, model_warnings, errors
