@@ -89,7 +89,7 @@ class Model(object):
 
         self.plot = plotting.ModelPlotMethods(self)
 
-    def _init_from_model_run(self, model_run, debug_data):
+    def _init_from_model_run(self, model_run, debug_data,config_model):
         self._model_run = model_run
         self._debug_data = debug_data
         log_time(logger, self._timings, 'model_run_creation', comment='Model: preprocessing stage 1 (model_run)')
@@ -109,7 +109,7 @@ class Model(object):
             _model_data = apply_time_clustering(
                 self._model_data_original, model_run
             )
-        self._model_data = final_timedimension_processing(_model_data)
+        self._model_data = final_timedimension_processing(_model_data,_config_model)
         log_time(
             logger, self._timings, 'model_data_creation',
             comment='Model: preprocessing complete'
