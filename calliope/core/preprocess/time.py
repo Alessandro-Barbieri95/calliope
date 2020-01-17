@@ -267,10 +267,10 @@ def add_zero_carrier_ratio_sets(model_data):
     )
 
 
-def final_timedimension_processing(model_data):
+def final_timedimension_processing(model_data,config_model):
 
     # Final checking of the data
-    model_data, final_check_comments, warns, errors = checks.check_model_data(model_data)
+    model_data, final_check_comments, warns, errors = checks.check_model_data(model_data,config_model)
     exceptions.print_warnings_and_raise_errors(warnings=warns, errors=errors)
 
     model_data = add_max_demand_timesteps(model_data)
