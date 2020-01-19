@@ -99,7 +99,7 @@ def load_constraints(backend_model):
 
     if 'loc_techs_storage_final' in sets:
         backend_model.storage_final_constraint = po.Constraint(
-            backend_model.loc_tech_storage_final,
+            backend_model.loc_techs_storage_final_constraint,
             rule=storage_final_rule
         )    
 
